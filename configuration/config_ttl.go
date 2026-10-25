@@ -66,6 +66,7 @@ func parseConfigTTLString(value string) (*time.Duration, error) {
 }
 
 func parseConfigTTLNumber(value json.Number) (*time.Duration, error) {
+	var ns int64
 	if strings.ContainsAny(value.String(), ".eE") {
 		f, err := value.Float64()
 		if err != nil {
@@ -77,13 +78,15 @@ func parseConfigTTLNumber(value json.Number) (*time.Duration, error) {
 				"%s: numeric value must be a whole number of nanoseconds, got %q",
 				configTTLField, value.String())
 		}
-	}
-
-	ns, err := value.Int64()
-	if err != nil {
-		return nil, fmt.Errorf(
-			"%s: numeric value overflows int64 nanoseconds %q: %w",
-			configTTLField, value.String(), err)
+		ns = int64(f)
+	} else {
+		var err error
+		ns, err = value.Int64()
+		if err != nil {
+			return nil, fmt.Errorf(
+				"%s: numeric value overflows int64 nanoseconds %q: %w",
+				configTTLField, value.String(), err)
+		}
 	}
 
 	return finalizeConfigTTL(value.String(), time.Duration(ns))
