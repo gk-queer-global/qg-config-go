@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -66,10 +66,17 @@ func (fetcher *LocalJSONFetcher) FetchConfig() (*Config, error) {
 	}
 	defer configFile.Close()
 
-	cfgBytes, _ := ioutil.ReadAll(configFile)
+	cfgBytes, err := io.ReadAll(configFile)
+	if err != nil {
+		return nil, fmt.Errorf(
+			"unable to read config file %s: %w", fetcher.path, err)
+	}
 
 	var cfgValues Config
-	json.Unmarshal(cfgBytes, &cfgValues)
+	if err := json.Unmarshal(cfgBytes, &cfgValues); err != nil {
+		return nil, fmt.Errorf(
+			"unable to parse config file %s: %w", fetcher.path, err)
+	}
 
 	if fetcher.init.Aliases != nil {
 		for alias, variable := range *fetcher.init.Aliases {

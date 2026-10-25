@@ -1,0 +1,10 @@
+{
+	"ConfigType" : "json",
+    "Environment" : "unittest",
+    "Aliases" : {
+        "test1": "testvalues.test1"
+    },
+	"InitValues" : {
+        "Path" : "unittest-config-malformed.json"
+    }
+}

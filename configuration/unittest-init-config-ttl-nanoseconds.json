@@ -1,0 +1,8 @@
+{
+	"ConfigType" : "json",
+    "Environment" : "unittest",
+    "ConfigTTL" : 10000000000,
+	"InitValues" : {
+        "Path" : "unittest-config.json"
+    }
+}

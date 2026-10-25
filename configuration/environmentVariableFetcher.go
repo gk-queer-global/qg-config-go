@@ -16,6 +16,7 @@ limitations under the License.
 package configuration
 
 import (
+	"fmt"
 	"os"
 )
 
@@ -31,6 +32,11 @@ func NewEnvVarFetcher(init *InitParams) (*EnvVarFetcher, error) {
 }
 
 func (fetcher *EnvVarFetcher) FetchConfig() (*Config, error) {
+
+	if fetcher.init.Aliases == nil {
+		return nil, fmt.Errorf(
+			"Aliases must be provided for envvar config type")
+	}
 
 	var cfgValues = make(Config)
 
