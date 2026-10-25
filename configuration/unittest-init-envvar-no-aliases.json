@@ -1,0 +1,4 @@
+{
+	"ConfigType" : "envvar",
+    "Environment" : "unittest"
+}

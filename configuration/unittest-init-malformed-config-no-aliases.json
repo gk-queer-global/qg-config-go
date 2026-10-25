@@ -1,0 +1,7 @@
+{
+	"ConfigType" : "json",
+    "Environment" : "unittest",
+	"InitValues" : {
+        "Path" : "unittest-config-malformed.json"
+    }
+}

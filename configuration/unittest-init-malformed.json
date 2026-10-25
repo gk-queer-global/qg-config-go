@@ -1,0 +1,6 @@
+{
+	"ConfigType" : "json",
+	"InitValues" : {
+        "Path" : "unittest-config.json"
+    }
+	THIS IS NOT VALID JSON
